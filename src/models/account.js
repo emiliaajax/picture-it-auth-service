@@ -1,5 +1,5 @@
 /**
- * Mongoose model User.
+ * Mongoose model Account.
  *
  * @author Emilia Hansson <eh222yn@student.lnu.se>
  * @version 1.0.0
