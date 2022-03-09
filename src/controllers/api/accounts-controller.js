@@ -47,4 +47,31 @@ export class AccountsController {
       next(err)
     }
   }
+
+  /**
+   * Registers a user.
+   *
+   * @param {object} req Express request object.
+   * @param {object} res Express response object.
+   * @param {Function} next Express next middleware function.
+   */
+  async register (req, res, next) {
+    try {
+      const account = new Account({
+        username: req.body.username,
+        password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email
+      })
+
+      await account.save()
+
+      res
+        .status(201)
+        .json({ id: account.id })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
