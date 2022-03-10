@@ -2,7 +2,8 @@
   "name": "auth-service",
   "version": "1.0.0",
   "description": "The auth service is responsible for handling accounts and handing out JWTs upon successful authentication.",
-  "main": "index.js",
+  "type": "module",
+  "main": "server.js",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon --inspect -r dotenv/config src/server.js",
@@ -17,12 +18,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.3",
     "helmet": "^5.0.2",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.4"
+    "mongoose": "^6.2.4",
+    "morgan": "^1.10.0",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

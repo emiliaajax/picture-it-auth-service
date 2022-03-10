@@ -6,7 +6,7 @@
  */
 
 import jwt from 'jsonwebtoken'
-import { Account } from '../models/account.js'
+import { Account } from '../../models/account.js'
 import createError from 'http-errors'
 
 /**

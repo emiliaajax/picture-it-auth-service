@@ -60,7 +60,7 @@ const schema = new mongoose.Schema({
 })
 
 schema.virtual('id').get(function () {
-  return this.__id.toHexString()
+  return this._id.toHexString()
 })
 
 // Before saving the password is salted and hashed.
