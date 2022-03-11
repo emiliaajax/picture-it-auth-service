@@ -25,14 +25,15 @@ export class AccountsController {
       const account = await Account.authenticate(req.body.username, req.body.password)
 
       const payload = {
-        sub: account.username,
+        sub: account.id,
+        username: account.username,
         given_name: account.firstName,
         family_name: account.lastName,
         email: account.email
       }
 
-      const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-        algorithm: 'HS256',
+      const accessToken = jwt.sign(payload, Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64').toString('ascii'), {
+        algorithm: 'RS256',
         expiresIn: process.env.ACCESS_TOKEN_LIFE
       })
 
