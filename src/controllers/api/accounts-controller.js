@@ -72,7 +72,14 @@ export class AccountsController {
         .status(201)
         .json({ id: account.id })
     } catch (error) {
-      next(error)
+      let err = error
+      if (error.code === 11000 || error.name === 'ValidationError') {
+        err = createError(400)
+        err.cause = error
+        err.message = 'The request cannot or will not be processed due to something that is perceived to be a client error (for example validation error).'
+      }
+
+      next(err)
     }
   }
 }

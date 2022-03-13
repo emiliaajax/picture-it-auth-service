@@ -68,18 +68,18 @@ schema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, 10)
 })
 
-// Inspired from https://mongoosejs.com/docs/middleware.html#post (retrieved at 2022-02-20)
-schema.post('save', function (error, doc, next) {
-  if (error.name === 'MongoServerError' & error.code === 11000) {
-    if (Object.keys(error.keyValue)[0] === 'username') {
-      throw new Error('The username is already taken!')
-    } else if (Object.keys(error.keyValue)[0] === 'email') {
-      throw new Error('The email is already in use!')
-    }
-  } else {
-    next()
-  }
-})
+// // Inspired from https://mongoosejs.com/docs/middleware.html#post (retrieved at 2022-02-20)
+// schema.post('save', function (error, doc, next) {
+//   if (error.name === 'MongoServerError' & error.code === 11000) {
+//     if (Object.keys(error.keyValue)[0] === 'username') {
+//       throw new Error('The username is already taken!')
+//     } else if (Object.keys(error.keyValue)[0] === 'email') {
+//       throw new Error('The email is already in use!')
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 /**
  * Authenticates an account.
@@ -91,7 +91,7 @@ schema.post('save', function (error, doc, next) {
 schema.statics.authenticate = async function (username, password) {
   const account = await this.findOne({ username })
   if (!account || !(await bcrypt.compare(password, account.password))) {
-    throw new Error('Invalid username or password.')
+    throw new Error('Credentials invalid or not provided.')
   }
   return account
 }
