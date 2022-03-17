@@ -10,5 +10,17 @@ import { router as accountRouter } from './accounts-router.js'
 
 export const router = express.Router()
 
-router.get('/', (req, res) => res.json({ message: 'Hooray! Welcome to version 1 of this very simple RESTful API!' }))
+router.get('/', (req, res) => res.json({
+  message: 'Welcome to version 1 of this API!',
+  endpoints: [
+    {
+      endpoint: 'POST /register',
+      description: 'Registers a user.'
+    },
+    {
+      endpoint: 'POST /login',
+      description: 'Login user.'
+    }
+  ]
+}))
 router.use('/', accountRouter)
