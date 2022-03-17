@@ -73,7 +73,12 @@ export class AccountsController {
         .json({ id: account.id })
     } catch (error) {
       let err = error
-      if (error.code === 11000 || error.name === 'ValidationError') {
+
+      if (err.code === 11000) {
+        // Duplicated keys
+        err = createError(409)
+        err.cause = error
+      } else if (error.name === 'ValidationError') {
         err = createError(400)
         err.cause = error
         err.message = 'The request cannot or will not be processed due to something that is perceived to be a client error (for example validation error).'

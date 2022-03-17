@@ -26,12 +26,14 @@ const schema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
+    trim: true,
     minLength: 1,
     maxLength: 256
   },
   lastName: {
     type: String,
     required: true,
+    trim: true,
     minLength: 1,
     maxLength: 256
   },
@@ -67,19 +69,6 @@ schema.virtual('id').get(function () {
 schema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, 10)
 })
-
-// // Inspired from https://mongoosejs.com/docs/middleware.html#post (retrieved at 2022-02-20)
-// schema.post('save', function (error, doc, next) {
-//   if (error.name === 'MongoServerError' & error.code === 11000) {
-//     if (Object.keys(error.keyValue)[0] === 'username') {
-//       throw new Error('The username is already taken!')
-//     } else if (Object.keys(error.keyValue)[0] === 'email') {
-//       throw new Error('The email is already in use!')
-//     }
-//   } else {
-//     next()
-//   }
-// })
 
 /**
  * Authenticates an account.

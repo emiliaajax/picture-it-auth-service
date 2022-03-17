@@ -34,11 +34,11 @@ try {
   app.use(function (err, req, res, next) {
     err.status = err.status || 500
 
-    if (err.status === 500) {
-      err.message = 'An unexpected condition was encountered.'
-    }
-
     if (req.app.get('env') !== 'development') {
+      if (err.status === 500) {
+        err.message = 'An unexpected condition was encountered.'
+      }
+
       return res
         .status(err.status)
         .json({
